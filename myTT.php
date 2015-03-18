@@ -35,7 +35,12 @@ class wechatCallbackapiTest
         //fclose($fp);
         
         $s = new SaeStorage();
-        $old = $s->read( 'mylog' , "./log/".$fname.".txt");
+		if($s->fileExists('mylog' , "./log/".$fname.".txt"))
+		{
+			$old = $s->read( 'mylog' , "./log/".$fname.".txt");
+		}else{
+			$old ="";
+		}
         $s->write( 'mylog' , "./log/".$fname.".txt", $old.$receiveMsg."\r\n".$replyMsg."\r\n"."\r\n");
         //return  true;
     }
@@ -69,7 +74,7 @@ class wechatCallbackapiTest
                     if($postObj->Event == "subscribe")
                     {
                         $msgType = "text";
-                        $contentStr =  "这是个微信开发测试机器人，请不要调戏�?;
+                        $contentStr =  "这是一只微信开发测试机器人，请不要调戏它?;
                         $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 		echo $resultStr;
                         $this->record($keyword,$resultStr);
@@ -80,7 +85,7 @@ class wechatCallbackapiTest
 				if(!empty( $keyword ))
                 {                        
               		$msgType = "text";
-                    $contentStr = $dd.$keyword."是你啊，屌丝  @".date("Y-m-d H:i:s",time());
+                    $contentStr = $dd.$keyword."  @".date("Y-m-d H:i:s",time());
                 	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                     echo $resultStr;
                     
