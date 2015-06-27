@@ -1,6 +1,7 @@
 <?php
 /**
   * wechat php test
+  * 6.28
   */
 //define your token
 define("TOKEN", "weixin");
